@@ -16,6 +16,7 @@ using Events.Model;
 using EventBase.Interfaces;
 using EventBase;
 using EventBase.Logger;
+using Events.Common;
 
 namespace Events.ViewModel
 {
@@ -40,6 +41,7 @@ namespace Events.ViewModel
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
             }
+            SimpleIoc.Default.Register<ISettings, Settings>();
             SimpleIoc.Default.Register<ILog, EtwLogger>();
             SimpleIoc.Default.Register<ILogger, Logger>();
             SimpleIoc.Default.Register<MainViewModel>();

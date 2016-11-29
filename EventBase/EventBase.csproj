@@ -44,6 +44,7 @@
     <Compile Include="Interfaces\IEvent.cs" />
     <Compile Include="Interfaces\ILog.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Logger\EtwLogger.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Models\LogEntry.cs" />

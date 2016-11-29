@@ -17,16 +17,7 @@ namespace Events
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
-        }
-        protected async override void OnGotFocus(RoutedEventArgs e)
-        {
-            base.OnGotFocus(e);
-            await ViewModel.onLoaded();
-        }
-        protected override void OnLostFocus(RoutedEventArgs e)
-        {
-            base.OnLostFocus(e);
-            ViewModel.onUnloaded();
+            Closing += (s, e) => ViewModel.onUnloaded();
         }
     }
 }

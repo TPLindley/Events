@@ -4,11 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d ignore"
         Height="300"
         Width="300"
         Title="Event Handler Exercise"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     
     <Window.Resources>
         <ResourceDictionary>
