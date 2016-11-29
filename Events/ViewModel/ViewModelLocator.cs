@@ -13,6 +13,9 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using Events.Model;
+using EventBase.Interfaces;
+using EventBase;
+using EventBase.Logger;
 
 namespace Events.ViewModel
 {
@@ -37,7 +40,8 @@ namespace Events.ViewModel
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
             }
-
+            SimpleIoc.Default.Register<ILog, EtwLogger>();
+            SimpleIoc.Default.Register<ILogger, Logger>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
 

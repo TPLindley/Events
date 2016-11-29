@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using Events.Model;
+using EventBase.Interfaces;
 
 namespace Events.ViewModel
 {
@@ -9,7 +10,7 @@ namespace Events.ViewModel
     /// See http://www.mvvmlight.net
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : BaseViewModel
     {
         private readonly IDataService _dataService;
 
@@ -39,7 +40,8 @@ namespace Events.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(IDataService dataService)
+        public MainViewModel(ILogger logger,IDataService dataService)
+            :base(logger)
         {
             _dataService = dataService;
             _dataService.GetData(
