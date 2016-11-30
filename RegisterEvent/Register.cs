@@ -14,5 +14,9 @@ namespace RegisterEvent
         {
             return EventLibConstants.Name;
         }
+        public override string Process(int value)
+        {
+            return base.Process(value).Trim();
+        }
     }
 }

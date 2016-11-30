@@ -14,5 +14,9 @@ namespace DiagnoseEvent
         {
             return DiagnoseLibConstants.Name;
         }
+        public override string Process(int value)
+        {
+            return base.Process(value).Trim();
+        }
     }
 }

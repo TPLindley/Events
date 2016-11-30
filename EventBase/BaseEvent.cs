@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace EventBase
 {
@@ -15,7 +16,7 @@ namespace EventBase
         {
             throw new NotImplementedException();
         }
-        public string Process(int value)
+        public virtual string Process(int value)
         {
             string result = string.Empty;
             if (value<1||value>100)

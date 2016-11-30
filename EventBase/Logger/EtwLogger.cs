@@ -15,9 +15,10 @@ namespace EventBase.Logger
         {
             return Task.FromResult(0);
         }
-        public async Task Suspend()
+        public Task Suspend()
         {
             Dispose(true);
+            return Task.FromResult(0);
         }
 
         public Task Resume()

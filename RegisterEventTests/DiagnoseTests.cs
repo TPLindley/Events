@@ -33,12 +33,12 @@ namespace DiagnoseEvent.Tests
                 {
                     if (index % 2 == 0)
                     {
-                        if (output.CompareTo(DiagnoseLibConstants.Diagnose) != 0)
+                        if (output.CompareTo(DiagnoseLibConstants.Diagnose.Trim()) != 0)
                             Assert.Fail();
                     }
                     else if (index % 7 == 0)
                     {
-                        if (output.CompareTo(DiagnoseLibConstants.Patient) != 0)
+                        if (output.CompareTo(DiagnoseLibConstants.Patient.Trim()) != 0)
                             Assert.Fail();
                     }
                     else

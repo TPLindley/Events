@@ -33,12 +33,12 @@ namespace RegisterEvent.Tests
                 {
                     if (index % 3 == 0)
                     {
-                        if (output.CompareTo(EventLibConstants.Register) != 0)
+                        if (output.CompareTo(EventLibConstants.Register.Trim()) != 0)
                             Assert.Fail();
                     }
                     else if (index % 5 == 0)
                     {
-                        if (output.CompareTo(EventLibConstants.Patient) != 0)
+                        if (output.CompareTo(EventLibConstants.Patient.Trim()) != 0)
                             Assert.Fail();
                     }
                     else

@@ -26,14 +26,32 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
-
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Event" TextAlignment="Right" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+        <ComboBox Margin="5,0" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding EventHandlers}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEventHandler,Mode=TwoWay}" HorizontalAlignment="Left" Width="100" Height="22"/>
+        <Button Content="Process" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Command="{Binding RaiseEvent}" IsEnabled="{Binding OkToProcess}"/>
+        <TextBlock Margin="0,5,0,0" Grid.Row="2" Grid.Column="0" Text="Results:" TextAlignment="Right" VerticalAlignment="Top"/>
+        <ListView Margin="5,5,0,5" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Results}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="2,0" Text="{Binding Seed}" Width="20" TextAlignment="Right" Foreground="Green"/>
+                        <TextBlock Margin="2,0" Text="=>" />
+                        <TextBlock Margin="2,0" Text="{Binding Value}" Width="100" Foreground="Blue"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ProgressBar Grid.RowSpan="3" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="True" Visibility="{Binding IsProcessing,Converter={StaticResource BooleanToVisibilityConverter}}" IsIndeterminate="True" Orientation="Horizontal" Width="200" Height="20"/>
     </Grid>
 </Window>
