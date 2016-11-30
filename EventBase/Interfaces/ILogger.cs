@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EventBase.Interfaces
 {
+    /// <summary>
+    /// Interface definition for event logging service
+    /// </summary>
     public interface ILogger
     {
         Task LogInfo(string message, string member = null);

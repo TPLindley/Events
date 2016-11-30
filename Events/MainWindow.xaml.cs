@@ -17,7 +17,7 @@ namespace Events
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
-            Closing += (s, e) => ViewModel.onUnloaded();
+            Closing += (s, e) => ViewModel.Unloaded();
         }
     }
 }

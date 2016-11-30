@@ -3,36 +3,42 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 
 namespace Events.Common
 {
+    /// <summary>
+    /// AppSettings class will hold all the settings for the application.
+    /// 
+    /// Currently, this is only a list of the event handler libraries to load
+    /// 
+    /// </summary>
     public class AppSettings
     {
         public List<string> EventLibraries { get; set; }
     }
+    /// <summary>
+    /// Settings class to handle reading/writing settings to the application settings file
+    /// 
+    /// Note: This approach will work with both WPF and Modern Applications
+    /// 
+    /// </summary>
     sealed class Settings : ISettings
     {
-        private ConfigurationBuilder _configBuilder;
+        private readonly ConfigurationBuilder _configBuilder;
         public IConfiguration Configuration { get; set; }
-        public AppSettings AppSettings
-        {
-            get { return Configuration?.Get<AppSettings>(); }
-        }
+        public AppSettings AppSettings => Configuration?.Get<AppSettings>();
+
         public Settings()
         {
             try
             {
-                var appSettings = new AppSettings() { EventLibraries = new List<string>() };
                 _configBuilder = new ConfigurationBuilder();
                 _configBuilder.AddJsonFile("EventSettings.json");
                 Configuration = _configBuilder.Build();
-                var set = AppSettings;
             }
             catch (Exception ex)
             {
-                var msg = ex.Message;
                 var tokens = ex.Message.Split('\'');
                 var settings = new AppSettings()
                 {

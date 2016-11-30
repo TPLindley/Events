@@ -2,9 +2,13 @@
 using EventBase.Models;
 using System;
 using System.Threading.Tasks;
+// ReSharper disable UnusedMember.Local
 
 namespace EventBase.Logger
 {
+    /// <summary>
+    /// Example logging function. Was implemented with WinRT ETW, but would not convert
+    /// </summary>
     public class EtwLogger : ILog, IDisposable
     {
         public EtwLogger()
@@ -30,7 +34,7 @@ namespace EventBase.Logger
         /// </summary>
         private void CheckDisposed()
         {
-            if (isDisposed)
+            if (_isDisposed)
             {
                 throw new ObjectDisposedException("Events.Logging");
             }
@@ -48,20 +52,20 @@ namespace EventBase.Logger
                                  now.Second);
         }
         #region IDisposable Support
-        private bool isDisposed = false; // To detect redundant calls
+        private bool _isDisposed; // To detect redundant calls
         protected virtual void Dispose(bool disposing)
         {
-            if (!isDisposed)
+            if (!_isDisposed)
             {
                 if (disposing)
                 {
-                    if (isDisposed == false)
+                    if (_isDisposed == false)
                     {
-                        isDisposed = true;
+                        _isDisposed = true;
                     }
                     GC.SuppressFinalize(this);
                 }
-                isDisposed = true;
+                _isDisposed = true;
             }
         }
 

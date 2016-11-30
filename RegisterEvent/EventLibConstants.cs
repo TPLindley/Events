@@ -1,5 +1,8 @@
 ﻿namespace RegisterEvent
 {
+    /// <summary>
+    /// Constants for 'RegisterEvent' handler
+    /// </summary>
     public static class EventLibConstants
     {
         public static string Name = "Register";

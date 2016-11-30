@@ -4,13 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+// ReSharper disable InconsistentlySynchronizedField
 
 namespace EventBase.Logger
 {
     public class Logger : ILogger
     {
         #region Public
+#pragma warning disable 67
         public event Action<bool> AddLogger = delegate { };
+#pragma warning restore 67
         public Logger(ILog baseLogger)
         {
             _loggers.Add(baseLogger);

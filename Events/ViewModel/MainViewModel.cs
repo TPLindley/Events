@@ -1,15 +1,13 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
 using Events.Model;
 using EventBase.Interfaces;
-using System.Threading.Tasks;
-using System.Configuration;
 using GalaSoft.MvvmLight.Command;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-using System.Windows;
 using System.Collections.ObjectModel;
+// ReSharper disable ExplicitCallerInfoArgument
+// ReSharper disable RedundantOverridenMember
 
 namespace Events.ViewModel
 {
@@ -22,16 +20,16 @@ namespace Events.ViewModel
     public class MainViewModel : BaseViewModel
     {
         #region Private
-        private readonly IDataService _dataService;
+
         private string _welcomeTitle = string.Empty;
-        private ISettings _settings;
+        private readonly ISettings _settings;
         private void LoadEventHandlers(List<string> listHandlers)
         {
             if (listHandlers!=null && listHandlers.Any())
             {
                 foreach (var library in listHandlers)
                 {
-                    EventHandlers.Add(new MyEventHandler() { EventAssembly = Assembly.Load(library), Name = library.Substring(0, library.IndexOf("Event")) });
+                    EventHandlers.Add(new MyEventHandler() { EventAssembly = Assembly.Load(library), Name = library.Substring(0, library.IndexOf("Event", StringComparison.Ordinal)) });
                 }
                 RaisePropertyChanged("EventHandlers");
             }
@@ -73,8 +71,7 @@ namespace Events.ViewModel
             : base(logger)
         {
             _settings = settings;
-            _dataService = dataService;
-            _dataService.GetData(
+            dataService.GetData(
                 (item, error) =>
                 {
                     if (error != null)
@@ -86,16 +83,15 @@ namespace Events.ViewModel
                     WelcomeTitle = item.Title;
                 });
         }
-        public override Task onLoaded()
+        public override void Loaded()
         {
-            var result = base.onLoaded();
+            base.Loaded();
             LoadEventHandlers(_settings.GetEventLibraries());
             SelectedEventHandler = EventHandlers.First();
-            return result;
         }
-        public override void onUnloaded()
+        public override void Unloaded()
         {
-            base.onUnloaded();
+            base.Unloaded();
         }
         public override void Cleanup()
         {
@@ -121,13 +117,7 @@ namespace Events.ViewModel
             }
         }
         private RelayCommand _raiseEvent;
-        public RelayCommand RaiseEvent
-        {
-            get
-            {
-                return _raiseEvent ?? (_raiseEvent = new RelayCommand(ProcessEvent));
-            }
-        }
+        public RelayCommand RaiseEvent => _raiseEvent ?? (_raiseEvent = new RelayCommand(ProcessEvent));
         private string _resultString;
         public string ResultString
         {
@@ -140,7 +130,7 @@ namespace Events.ViewModel
             get { return _results; }
             set { _results = value; RaisePropertyChanged(); }
         }
-        private bool _isProcessing = false;
+        private bool _isProcessing;
         public bool IsProcessing
         {
             get { return _isProcessing; }
