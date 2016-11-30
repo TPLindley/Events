@@ -288,6 +288,10 @@
       <Project>{7994dd9f-261c-4d5b-87b7-d249aa70a56c}</Project>
       <Name>RegisterEvent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestEvent\TestEvent.csproj">
+      <Project>{3b91dee1-4d43-4e18-ba70-63b4758bb6fe}</Project>
+      <Name>TestEvent</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
