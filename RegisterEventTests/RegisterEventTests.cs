@@ -1,21 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RegisterEvent;
 
-namespace RegisterEvent.Tests
+namespace RegisterEventTests
 {
     [TestClass()]
     public class RegisterEventTests
     {
-        private Register registerEvent;
+        private Register _registerEvent;
         [TestInitialize]
         public void Initialize()
         {
-            registerEvent = new Register();
+            _registerEvent = new Register();
         }
         [TestMethod]
         public void NameTest()
         {
-            if (registerEvent.Name().CompareTo(EventLibConstants.Name) != 0)
+            if (String.Compare(_registerEvent.Name(), EventLibConstants.Name, StringComparison.Ordinal) != 0)
                 Assert.Fail();
         }
         [TestMethod()]
@@ -23,27 +24,27 @@ namespace RegisterEvent.Tests
         {
             for(var index=1;index<101;index++)
             {
-                var output = registerEvent.Process(index);
+                var output = _registerEvent.Process(index);
                 if (index % 3 == 0 && index % 5 == 0)
                 {
-                    if (output.CompareTo($"{EventLibConstants.Register}{EventLibConstants.Patient}") != 0)
+                    if (String.Compare(output, $"{EventLibConstants.Register}{EventLibConstants.Patient}", StringComparison.Ordinal) != 0)
                         Assert.Fail();
                 }
                 else
                 {
                     if (index % 3 == 0)
                     {
-                        if (output.CompareTo(EventLibConstants.Register.Trim()) != 0)
+                        if (String.Compare(output, EventLibConstants.Register.Trim(), StringComparison.Ordinal) != 0)
                             Assert.Fail();
                     }
                     else if (index % 5 == 0)
                     {
-                        if (output.CompareTo(EventLibConstants.Patient.Trim()) != 0)
+                        if (String.Compare(output, EventLibConstants.Patient.Trim(), StringComparison.Ordinal) != 0)
                             Assert.Fail();
                     }
                     else
                     {
-                        if (output.CompareTo($"{index}") != 0)
+                        if (String.Compare(output, $"{index}", StringComparison.Ordinal) != 0)
                             Assert.Fail();
                     }
                 }
@@ -54,7 +55,7 @@ namespace RegisterEvent.Tests
         {
             try
             {
-                var output = registerEvent.Process(-1);
+                _registerEvent.Process(-1);
                 Assert.Fail();
             }
             catch(Exception ex)
@@ -68,7 +69,7 @@ namespace RegisterEvent.Tests
         {
             try
             {
-                var output = registerEvent.Process(101);
+                _registerEvent?.Process(101);
                 Assert.Fail();
             }
             catch (Exception ex)

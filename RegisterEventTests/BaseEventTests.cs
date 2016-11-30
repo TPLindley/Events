@@ -1,23 +1,23 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System;
-using System.Diagnostics;
+﻿using System;
+using EventBase;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable EmptyGeneralCatchClause
 
-namespace EventBase.Tests
+namespace RegisterEventTests
 {
     [TestClass()]
     public class BaseEventTests
     {
         //        private Mock<BaseEvent> baseEvent;
-        private myEvent baseEvent;
-        public class myEvent : BaseEvent
+        private MyEvent _baseEvent;
+        public class MyEvent : BaseEvent
         {
         }
         [TestInitialize]
         public void Initialize()
         {
             //            baseEvent = new Mock<BaseEvent>();
-            baseEvent = new myEvent();
+            _baseEvent = new MyEvent();
         }
         [TestMethod()]
         public void BaseEventTest()
@@ -29,7 +29,7 @@ namespace EventBase.Tests
         {
             try
             {
-                var name = baseEvent.Name();
+                _baseEvent?.Name();
                 Assert.Fail();
             }
             catch
@@ -42,7 +42,7 @@ namespace EventBase.Tests
         {
             for(int index=1;index<101;index++)
             {
-                var result = baseEvent.Process(index);
+                var result = _baseEvent.Process(index);
                 if (Convert.ToInt32(result) != index)
                     Assert.Fail();
             }
@@ -52,7 +52,7 @@ namespace EventBase.Tests
         {
             try
             {
-                var output = baseEvent.Process(-1);
+                _baseEvent?.Process(-1);
                 Assert.Fail();
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace EventBase.Tests
         {
             try
             {
-                var output = baseEvent.Process(101);
+                var output = _baseEvent.Process(101);
                 Assert.Fail();
             }
             catch (Exception ex)

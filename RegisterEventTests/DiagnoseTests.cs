@@ -1,21 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using DiagnoseEvent;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DiagnoseEvent.Tests
+namespace RegisterEventTests
 {
     [TestClass()]
     public class DiagnoseTests
     {
-        private Diagnose diagnoseEvent;
+        private Diagnose _diagnoseEvent;
         [TestInitialize]
         public void Initialize()
         {
-            diagnoseEvent = new Diagnose();
+            _diagnoseEvent = new Diagnose();
         }
         [TestMethod()]
         public void NameTest()
         {
-            if (diagnoseEvent.Name().CompareTo(DiagnoseLibConstants.Name) != 0)
+            if (String.Compare(_diagnoseEvent.Name(), DiagnoseLibConstants.Name, StringComparison.Ordinal) != 0)
                 Assert.Fail();
         }
         [TestMethod()]
@@ -23,27 +24,27 @@ namespace DiagnoseEvent.Tests
         {
             for (var index = 1; index < 101; index++)
             {
-                var output = diagnoseEvent.Process(index);
+                var output = _diagnoseEvent.Process(index);
                 if (index % 2 == 0 && index % 7 == 0)
                 {
-                    if (output.CompareTo($"{DiagnoseLibConstants.Diagnose}{DiagnoseLibConstants.Patient}") != 0)
+                    if (String.Compare(output, $"{DiagnoseLibConstants.Diagnose}{DiagnoseLibConstants.Patient}", StringComparison.Ordinal) != 0)
                         Assert.Fail();
                 }
                 else
                 {
                     if (index % 2 == 0)
                     {
-                        if (output.CompareTo(DiagnoseLibConstants.Diagnose.Trim()) != 0)
+                        if (String.Compare(output, DiagnoseLibConstants.Diagnose.Trim(), StringComparison.Ordinal) != 0)
                             Assert.Fail();
                     }
                     else if (index % 7 == 0)
                     {
-                        if (output.CompareTo(DiagnoseLibConstants.Patient.Trim()) != 0)
+                        if (String.Compare(output, DiagnoseLibConstants.Patient.Trim(), StringComparison.Ordinal) != 0)
                             Assert.Fail();
                     }
                     else
                     {
-                        if (output.CompareTo($"{index}") != 0)
+                        if (String.Compare(output, $"{index}", StringComparison.Ordinal) != 0)
                             Assert.Fail();
                     }
                 }
@@ -54,7 +55,7 @@ namespace DiagnoseEvent.Tests
         {
             try
             {
-                var output = diagnoseEvent.Process(-1);
+                _diagnoseEvent.Process(-1);
                 Assert.Fail();
             }
             catch (Exception ex)
@@ -68,7 +69,7 @@ namespace DiagnoseEvent.Tests
         {
             try
             {
-                var output = diagnoseEvent.Process(101);
+                _diagnoseEvent.Process(101);
                 Assert.Fail();
             }
             catch (Exception ex)
