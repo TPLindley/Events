@@ -8,6 +8,6 @@ namespace EventBase.Interfaces
 {
     public interface ISettings
     {
-        String GetEventLibraries();
+        List<string> GetEventLibraries();
     }
 }

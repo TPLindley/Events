@@ -25,14 +25,13 @@ namespace Events.ViewModel
         private readonly IDataService _dataService;
         private string _welcomeTitle = string.Empty;
         private ISettings _settings;
-        private void LoadEventHandlers(string listHandlers)
+        private void LoadEventHandlers(List<string> listHandlers)
         {
-            if (!string.IsNullOrEmpty(listHandlers))
+            if (listHandlers!=null && listHandlers.Any())
             {
-                var libs = listHandlers.Split(';');
-                foreach (var lib in libs)
+                foreach (var library in listHandlers)
                 {
-                    EventHandlers.Add(new MyEventHandler() { EventAssembly = Assembly.Load(lib), Name = lib.Substring(0, lib.IndexOf("Event")) });
+                    EventHandlers.Add(new MyEventHandler() { EventAssembly = Assembly.Load(library), Name = library.Substring(0, library.IndexOf("Event")) });
                 }
                 RaisePropertyChanged("EventHandlers");
             }
