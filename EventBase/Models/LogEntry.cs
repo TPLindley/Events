@@ -13,5 +13,9 @@ namespace EventBase.Models
         public int Code { get; set; }
         public string Source { get; set; }
         public string Message { get; set; }
+        public override string ToString()
+        {
+            return $"{TimeStamp.ToShortDateString()}:{Severity} {Code}-{Source}-{Message}";
+        }
     }
 }

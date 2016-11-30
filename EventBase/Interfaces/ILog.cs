@@ -8,8 +8,7 @@ namespace EventBase.Interfaces
     /// </summary>
     public interface ILog
     {
-        Task Log(LogEntry logEntry);
-        Task Suspend();
-        Task Resume();
+        void Log(LogEntry logEntry);
+        void Stop();
     }
 }

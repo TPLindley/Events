@@ -25,8 +25,7 @@ namespace RegisterEventTests
         {
             Exception ex = new ArgumentOutOfRangeException();
             _loggerMock
-                .Setup(lm => lm.LogException(It.IsAny<string>(),It.IsAny<Exception>(),It.IsAny<string>()))
-                .Returns(Task.FromResult(0));
+                .Setup(lm => lm.LogException(It.IsAny<string>(),It.IsAny<Exception>(),It.IsAny<string>()));
             _baseTestModel = new BaseTestModel(_loggerMock.Object) { ShowErrors = false };
         }
         [TestMethod()]

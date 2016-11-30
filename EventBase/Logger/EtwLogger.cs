@@ -1,6 +1,7 @@
 ﻿using EventBase.Interfaces;
 using EventBase.Models;
 using System;
+using System.Diagnostics.Tracing;
 using System.Threading.Tasks;
 // ReSharper disable UnusedMember.Local
 
@@ -9,36 +10,24 @@ namespace EventBase.Logger
     /// <summary>
     /// Example logging function. Was implemented with WinRT ETW, but would not convert
     /// </summary>
-    public class EtwLogger : ILog, IDisposable
+    [EventSource(Name = "EventsLog", Guid= "{fa17d3b0-0c84-488d-9805-4e27a7cdbbc9}")]
+    public class EtwLogger : EventSource, ILog
     {
-        public EtwLogger()
+        #region Public
+        public EtwLogger() : base(true)
         {
-            Resume();
         }
-        public Task Log(LogEntry logEntry)
+        public void Log(LogEntry logEntry)
         {
-            return Task.FromResult(0);
+            WriteEvent(_eventId++, logEntry.ToString());
         }
-        public Task Suspend()
+        public void Stop()
         {
-            Dispose(true);
-            return Task.FromResult(0);
+            Dispose();
         }
-
-        public Task Resume()
-        {
-            return Task.FromResult(0);
-        }
-        /// <summary>
-        /// Helper function for other methods to call to check Dispose() state.
-        /// </summary>
-        private void CheckDisposed()
-        {
-            if (_isDisposed)
-            {
-                throw new ObjectDisposedException("Events.Logging");
-            }
-        }
+        #endregion
+        #region Private
+        private int _eventId = 1;
         private string GetTimeStamp()
         {
             DateTime now = DateTime.Now;
@@ -51,38 +40,8 @@ namespace EventBase.Logger
                                  now.Minute,
                                  now.Second);
         }
-        #region IDisposable Support
-        private bool _isDisposed; // To detect redundant calls
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_isDisposed)
-            {
-                if (disposing)
-                {
-                    if (_isDisposed == false)
-                    {
-                        _isDisposed = true;
-                    }
-                    GC.SuppressFinalize(this);
-                }
-                _isDisposed = true;
-            }
-        }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~EtwLogger() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
 
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
-        }
         #endregion
     }
 }

@@ -36,6 +36,7 @@ namespace Events.ViewModel
         }
         private void ProcessEvent()
         {
+            LogInfo("Processing Event");
             IsProcessing = true;
             Results.Clear();
             for (int seed = 1; seed < 101; seed++)

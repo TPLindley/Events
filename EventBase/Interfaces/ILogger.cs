@@ -8,13 +8,12 @@ namespace EventBase.Interfaces
     /// </summary>
     public interface ILogger
     {
-        Task LogInfo(string message, string member = null);
-        Task LogWarning(string message, string member = null);
-        Task LogError(string message, string member = null);
-        Task LogException(string message, Exception ex, string member = null);
+        void LogInfo(string message, string member = null);
+        void LogWarning(string message, string member = null);
+        void LogError(string message, string member = null);
+        void LogException(string message, Exception ex, string member = null);
         void AddLog(ILog log);
         void DelLog(ILog log);
-        Task Suspend();
-        Task Resume();
+        void Stop();
     }
 }

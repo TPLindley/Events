@@ -38,7 +38,7 @@ namespace Events.ViewModel
         {
             var module = $"{GetFileName(sourceFilePath)}:{memberName}@{sourceLineNumber}";
             if (_logger != null)
-                await _logger.LogException(module, ex);
+                _logger.LogException(module, ex);
             if (_showErrors)
                 await ShowException(ex, module, sourceLineNumber);
         }
@@ -52,20 +52,20 @@ namespace Events.ViewModel
             var dialog = ServiceLocator.Current.GetInstance<IDialogService>();
             try
             {
-                await _logger.LogError(message, module);
+                _logger.LogError(message, module);
             }
             catch { }
             if (_showErrors)
                 await dialog.ShowMessage(message, module);
         }
-        public async Task LogInfo(
+        public void LogInfo(
             string message = "",
             [CallerMemberName] string memberName = "",
             [CallerFilePath] string sourceFilePath = "",
             [CallerLineNumber] int sourceLineNumber = 0)
         {
             var module = $"{GetFileName(sourceFilePath)}:{memberName}@{sourceLineNumber}";
-            await _logger.LogInfo(message, module);
+            _logger.LogInfo(message, module);
         }
         public async Task ShowError(string message)
         {
@@ -84,6 +84,12 @@ namespace Events.ViewModel
                 message = ex.InnerException.Message;
             var dialog = ServiceLocator.Current.GetInstance<IDialogService>();
             await dialog.ShowMessage(message, module);
+        }
+        public override void Cleanup()
+        {
+            Unloaded();
+            _logger.Stop();
+            base.Cleanup();
         }
         #endregion
         #region Properties
