@@ -23,7 +23,7 @@ namespace Events.Common
     /// Note: This approach will work with both WPF and Modern Applications
     /// 
     /// </summary>
-    sealed class Settings : ISettings
+    public class Settings : ISettings
     {
         private readonly ConfigurationBuilder _configBuilder;
         public IConfiguration Configuration { get; set; }

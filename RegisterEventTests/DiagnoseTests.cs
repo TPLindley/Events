@@ -8,7 +8,7 @@ namespace RegisterEventTests
     public class DiagnoseTests
     {
         private Diagnose _diagnoseEvent;
-        [TestInitialize]
+        [TestInitialize()]
         public void Initialize()
         {
             _diagnoseEvent = new Diagnose();
@@ -50,7 +50,7 @@ namespace RegisterEventTests
                 }
             }
         }
-        [TestMethod]
+        [TestMethod()]
         public void ProcessTestNegativeNumber()
         {
             try
@@ -64,7 +64,7 @@ namespace RegisterEventTests
                     Assert.Fail();
             }
         }
-        [TestMethod]
+        [TestMethod()]
         public void ProcessTestInvalidPositiveNumber()
         {
             try

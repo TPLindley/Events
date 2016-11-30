@@ -20,7 +20,6 @@ namespace Events.ViewModel
         #region Private
         private bool HasFocus { get; set; }
         private readonly ILogger _logger;
-        private bool _showErrors = true;
         #endregion
         #region Public
         public virtual void Loaded()
@@ -90,10 +89,10 @@ namespace Events.ViewModel
         #region Properties
         private RelayCommand _onLoaded;
         public RelayCommand OnLoaded => _onLoaded ?? (_onLoaded = new RelayCommand(Loaded));
-
         private RelayCommand _onUnloaded;
         public RelayCommand OnUnloaded => _onUnloaded ?? (_onUnloaded = new RelayCommand(Unloaded));
-
+        private bool _showErrors = true;
+        public bool ShowErrors { get { return _showErrors; } set { _showErrors = value; } }
         #endregion
         #region Protected
         protected BaseViewModel(ILogger logger)

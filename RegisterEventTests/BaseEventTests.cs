@@ -8,15 +8,13 @@ namespace RegisterEventTests
     [TestClass()]
     public class BaseEventTests
     {
-        //        private Mock<BaseEvent> baseEvent;
         private MyEvent _baseEvent;
         public class MyEvent : BaseEvent
         {
         }
-        [TestInitialize]
+        [TestInitialize()]
         public void Initialize()
         {
-            //            baseEvent = new Mock<BaseEvent>();
             _baseEvent = new MyEvent();
         }
         [TestMethod()]

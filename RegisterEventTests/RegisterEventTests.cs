@@ -8,12 +8,12 @@ namespace RegisterEventTests
     public class RegisterEventTests
     {
         private Register _registerEvent;
-        [TestInitialize]
+        [TestInitialize()]
         public void Initialize()
         {
             _registerEvent = new Register();
         }
-        [TestMethod]
+        [TestMethod()]
         public void NameTest()
         {
             if (String.Compare(_registerEvent.Name(), EventLibConstants.Name, StringComparison.Ordinal) != 0)
@@ -50,7 +50,7 @@ namespace RegisterEventTests
                 }
             }
         }
-        [TestMethod]
+        [TestMethod()]
         public void ProcessTestNegativeNumber()
         {
             try
@@ -64,7 +64,7 @@ namespace RegisterEventTests
                     Assert.Fail();
             }
         }
-        [TestMethod]
+        [TestMethod()]
         public void ProcessTestInvalidPositiveNumber()
         {
             try
